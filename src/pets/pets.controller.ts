@@ -19,7 +19,6 @@ export class PetsController {
 
   @Get()
 findAll(@Query('userId') userId: number, @ActiveUser() user: UserActiveInterface) {
-
   return this.petsService.findAll(userId, user);
 }
 
