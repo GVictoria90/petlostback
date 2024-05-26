@@ -9,13 +9,25 @@ import { Role } from '../common/enums/role.enum';
 
 @Controller('pets') // Define un controlador para manejar las rutas relacionadas con las mascotas
 export class PetsController {
-  constructor(private readonly petsService: PetsService) { } // Constructor que inyecta el servicio de mascotas
+  constructor(private readonly petsService: PetsService) { } 
 
-  @Auth(Role.USER) // Aplica el decorador Auth para verificar la autorización del usuario con el rol USER
-  @Post() // Define un endpoint para manejar las solicitudes POST a la ruta base del controlador (/pets)
-  create(@Body() createPetDto: CreatePetDto, @ActiveUser() user: UserActiveInterface) { // Maneja la solicitud POST para crear una nueva mascota
-    return this.petsService.create(createPetDto, user); // Llama al método create del servicio de mascotas y devuelve el resultado
+  @Auth(Role.USER) 
+  @Post('newPet') 
+  create(@Body() createPetDto: CreatePetDto, @ActiveUser() user: UserActiveInterface) { 
+    return this.petsService.create(createPetDto, user); 
   }
+  /**
+   * 
+  @Post('create')
+  @UseInterceptors(FileInterceptor('file'))
+  async create(@Body() createPetDto: CreatePetDto, @UploadedFile() file: Express.Multer.File) {
+    if (file) {
+      createPetDto.imageFilename = file.filename; // Save the file name in DTO
+    }
+    return this.petsService.create(createPetDto);
+  }
+}
+   */
 
   @Get()
 findAll(@Query('userId') userId: number, @ActiveUser() user: UserActiveInterface) {

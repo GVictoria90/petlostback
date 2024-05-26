@@ -16,7 +16,7 @@ export class PostsController {
   }
 
   @Auth(Role.USER) // Aplica el decorador Auth para verificar la autorización del usuario con el rol USER
-  @Post() // Define un endpoint para manejar las solicitudes POST a la ruta base del controlador (/posts)
+  @Post('newPost') // Define un endpoint para manejar las solicitudes POST a la ruta base del controlador (/posts)
   create(@Body() createPostDto: CreatePostDto, @ActiveUser() user: UserActiveInterface) { // Maneja la solicitud POST para crear una nueva publicación
     return this.postsService.create(createPostDto, user); // Llama al método create del servicio de publicaciones y devuelve el resultado
   }

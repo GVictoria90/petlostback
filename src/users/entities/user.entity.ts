@@ -35,10 +35,7 @@ export class User {
 
     @UpdateDateColumn({ name: 'update_at' })
     updateAt: Date;
-/*
-    @DeleteDateColumn() // SE USA PARA HACER ELIMINACIONES LOGICAS
-    deleteAt: Date;
-*/
+
     @OneToMany(() => Pets, pet => pet.user)
     pet: Pets[];
 

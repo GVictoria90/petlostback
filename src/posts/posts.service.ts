@@ -26,8 +26,7 @@ export class PostsService {
         // Si fue exitosa, devuelve un mensaje de éxito junto con la información de la publicación creada
         return {
           message: 'Publicación creada con éxito', // Mensaje de éxito
-          post: createPosting, // Objeto de la publicación creada
-          idUser: user.idUser, // ID del usuario que creó la publicación
+
           idPost: createPosting.idPost, // ID de la publicación creada
         };
       } else {

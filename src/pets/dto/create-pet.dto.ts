@@ -5,27 +5,27 @@ export class CreatePetDto {
     @IsString() // debe ser string
     @MinLength(3) //el minimo de caracteres admitidos
     namePet: string;
- 
-     @IsInt() // ES NUMERO ENTERO
-     @IsPositive() // SEA POSITIVO
-     age: number;
- 
-     @IsString()
-     @IsOptional() // es opcional
-     breed?: string;
 
-     @IsEnum(PetEnum) // Valida que el valor sea uno de los miembros del enum
-     @IsOptional()
-     pet?: PetEnum;
+    @IsInt() // ES NUMERO ENTERO
+    @IsPositive() // SEA POSITIVO
+    age: number;
 
-     @IsString()
-     @IsOptional()
-     description?: string;
+    @IsString()
+    @IsOptional() // es opcional
+    breed?: string;
 
-     @IsString()
-     @IsOptional()
-     image?: string;
-     
+    @IsEnum(PetEnum) // Valida que el valor sea uno de los miembros del enum
+    @IsOptional()
+    pet?: PetEnum;
+
+    @IsString()
+    @IsOptional()
+    description?: string;
+
+    @IsString()
+    @IsOptional()
+    imageFilename?: string;
+
     @IsNumber()
     @IsOptional()
     idPost: number;

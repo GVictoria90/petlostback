@@ -23,7 +23,7 @@ export class Pets {
      description: string;
 
      @Column()
-     image: string;
+     imageFilename: string;
 
      @CreateDateColumn({ name: 'created_at' })
      createdAt: Date;

@@ -12,33 +12,40 @@ import { BreedsService } from 'src/breeds/breeds.service';
 @Injectable()
 export class PetsService {
   constructor(
-    @InjectRepository(Pets) // Inyecta el repositorio de Pets
-    private readonly petRepository: Repository<Pets>, // Declara un atributo para acceder al repositorio de Pets
-    @InjectRepository(Breed) // Inyecta el repositorio de Breed
-    private readonly breedRepository: Repository<Breed>, // Declara un atributo para acceder al repositorio de Breed
-    private readonly breedService: BreedsService) { } // Inyecta el servicio de BreedsService
+    @InjectRepository(Pets) 
+    private readonly petRepository: Repository<Pets>, 
+    @InjectRepository(Breed) 
+    private readonly breedRepository: Repository<Breed>, 
+    private readonly breedService: BreedsService) { }  
 
   /** +++++++++++++++ CREATE INICIO +++++++++++++++ */
-  async create(createPetDto: CreatePetDto, user: UserActiveInterface) { // Método para crear una nueva mascota
+  async create(createPetDto: CreatePetDto, user: UserActiveInterface) { 
     try {
-      const breed = await this.breedService.validateBreed(createPetDto.breed) // Valida la raza de la mascota
-      const insertPet = await this.petRepository.save({ // Guarda la mascota en la base de datos
-        ...createPetDto, // Utiliza los datos proporcionados para crear la mascota
-        breed: breed, // Asigna la raza validada a la mascota
-        idUser: user.idUser // Asigna el ID del usuario actual como dueño de la mascota
+      const breed = await this.breedService.validateBreed(createPetDto.breed) 
+      const insertPet = await this.petRepository.save({ 
+        ...createPetDto, 
+        breed: breed, 
+        idUser: user.idUser 
       })
 
       if (insertPet) {
-        return { message: 'successfully created pet' } // Devuelve un mensaje de éxito si la mascota se crea correctamente
+        return { message: 'successfully created pet' } 
       } else {
-        throw new InternalServerErrorException("Error when creating the pet"); // Lanza una excepción si falla la creación de la mascota
+        throw new InternalServerErrorException("Error when creating the pet"); 
       }
     } catch (error) {
       console.log(error);
       
-      throw new InternalServerErrorException(error, "Error when calling the database"); // Lanza una excepción si hay un error al llamar a la base de datos
+      throw new InternalServerErrorException(error, "Error when calling the database"); 
     }
   }
+/**
+ *   async create(createPetDto: CreatePetDto): Promise<Pet> {
+    const pet = this.petRepository.create(createPetDto);
+    return this.petRepository.save(pet);
+  }
+ */
+
   /** +++++++++++++++ CREATE FIN +++++++++++++++ */
 
   /** --------------- INICIO FINDALL ---------------------- */
@@ -69,16 +76,16 @@ export class PetsService {
   }
 
   /** +++++++++++++++ UPDATE INICIO +++++++++++++++ */
-  async update(id: number, updatePetDto: UpdatePetDto) { // Método para actualizar una mascota
+  async update(id: number, updatePetDto: UpdatePetDto) { 
     try {
-      const updatePet = await this.petRepository.update(id, updatePetDto); // Actualiza la mascota en la base de datos
+      const updatePet = await this.petRepository.update(id, updatePetDto); 
       if (updatePet) {
-        return { message: 'Pet updated successfully' }; // Devuelve un mensaje de éxito si la actualización es exitosa
+        return { message: 'Pet updated successfully' }; 
       } else {
-        return { message: 'Ha ocurrido un error al intentar actualizar la mascota' }; // Devuelve un mensaje de error si falla la actualización
+        return { message: 'Ha ocurrido un error al intentar actualizar la mascota' }; 
       }
     } catch (error) {
-      throw new InternalServerErrorException("DB query failed"); // Lanza una excepción si falla la consulta
+      throw new InternalServerErrorException("DB query failed"); 
     }
   }
   /** +++++++++++++++ UPDATE FIN +++++++++++++++ */
