@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { PetsModule } from './pets/pets.module';
 import { PostsModule } from './posts/posts.module';
+import { ContactModule } from './contact/contact.module';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { PostsModule } from './posts/posts.module';
       autoLoadEntities: true, // CARGA LAS ENTITYS DE FORMA AUTOMATICA PARA NO HACERLO MANUAL
       synchronize: true, // TODO CAMBIO QUE SE GENERE ACA, SE SINCRONIZA CON LA "BD"
     }),    
-    BreedsModule, UsersModule, AuthModule, PetsModule, PostsModule],
+    BreedsModule, UsersModule, AuthModule, PetsModule, PostsModule, ContactModule],
   controllers: [],
   providers: [],
 })
