@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, InternalServerErrorException } from '@nestjs/common';
 import { ContactService } from './contact.service';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
@@ -9,24 +9,39 @@ export class ContactController {
 
   @Post()
   create(@Body() createContactDto: CreateContactDto) {
-    return this.contactService.create(createContactDto);
+    try {
+      return this.contactService.create(createContactDto);
+    } catch (error) {
+      throw new InternalServerErrorException(error, "Problemas en el controller");
+    }
+  
   }
 
   @Get()
   findAll() {
-    return this.contactService.findAll();
+    try {
+      return this.contactService.findAll();
+    } catch (error) {
+      throw new InternalServerErrorException(error, "Problemas en el controller");
+    }
+
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.contactService.findOne(+id);
+    try {
+      return this.contactService.findOne(+id);
+    } catch (error) {
+      
+    }
+    
   }
-
+/*
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateContactDto: UpdateContactDto) {
     return this.contactService.update(+id, updateContactDto);
   }
-
+*/
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.contactService.remove(+id);

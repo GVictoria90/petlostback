@@ -1,5 +1,5 @@
 import { Role } from "../../common/enums/role.enum";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Pets } from "src/pets/entities/pet.entity";
 import { Posts } from "src/posts/entities/post.entity";
 
