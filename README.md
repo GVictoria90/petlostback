@@ -41,6 +41,7 @@ Este proyecto es una aplicación de Nest-js para gestionar publicaciones de masc
 
 ## Estructura del Proyecto
  
+## Tecnologías Utilizadas
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
@@ -57,4 +58,4 @@ Este proyecto es una aplicación de Nest-js para gestionar publicaciones de masc
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.19"
   },
-# crud
+

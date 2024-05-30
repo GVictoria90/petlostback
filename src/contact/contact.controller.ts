@@ -1,11 +1,12 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, InternalServerErrorException } from '@nestjs/common';
 import { ContactService } from './contact.service';
 import { CreateContactDto } from './dto/create-contact.dto';
-import { UpdateContactDto } from './dto/update-contact.dto';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/common/enums/role.enum';
 
 @Controller('contact')
 export class ContactController {
-  constructor(private readonly contactService: ContactService) {}
+  constructor(private readonly contactService: ContactService) { }
 
   @Post()
   create(@Body() createContactDto: CreateContactDto) {
@@ -14,9 +15,9 @@ export class ContactController {
     } catch (error) {
       throw new InternalServerErrorException(error, "Problemas en el controller");
     }
-  
   }
-
+/** SOLO LOS ADMIN PUEDEN LEER LOS MENSAJES */
+  @Auth(Role.ADMIN)
   @Get()
   findAll() {
     try {
@@ -24,26 +25,26 @@ export class ContactController {
     } catch (error) {
       throw new InternalServerErrorException(error, "Problemas en el controller");
     }
-
   }
-
+  /** SOLO ADMIN */
+  @Auth(Role.ADMIN)
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     try {
-      return this.contactService.findOne(+id);
+      return this.contactService.findOne(id);
     } catch (error) {
-      
+      throw new InternalServerErrorException(error, "Problemas en el controller");
     }
-    
   }
-/*
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateContactDto: UpdateContactDto) {
-    return this.contactService.update(+id, updateContactDto);
-  }
-*/
+
+  /** SOLO ADMIN */
+  @Auth(Role.ADMIN)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.contactService.remove(+id);
+  remove(@Param('id') id: number) {
+    try {
+      return this.contactService.remove(id);
+    } catch (error) {
+      throw new InternalServerErrorException(error, "Problemas en el controller");
+    }
   }
 }

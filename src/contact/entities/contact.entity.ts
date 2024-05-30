@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { MinLength, maxLength } from "class-validator";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Contact {
@@ -6,7 +7,8 @@ export class Contact {
     @PrimaryGeneratedColumn()
     idContact: number;
 
-    @Column({ length: 50 })
+    @Column()
+    @MinLength(5)
     name: string;
 
     @Column()
@@ -14,4 +16,10 @@ export class Contact {
 
     @Column()
     message: string;    
+
+    @DeleteDateColumn()
+    deletedAt: Date;
+
+    @CreateDateColumn()
+    createdAt: Date;
 }

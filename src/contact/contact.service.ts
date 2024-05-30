@@ -45,15 +45,28 @@ export class ContactService {
 
  /** FIN FINDALL */ 
 
-  findOne(id: number) {
-    return `This action returns a #${id} contact`;
+ async findOne(id: number) {
+    try {
+      return await this.contactRepository.findOne({ where: { idContact: id } });
+    }  catch (error) {
+      throw new InternalServerErrorException(error, "Problemas en el Service");
+    }
+    
   }
 /*
   update(id: number, updateContactDto: UpdateContactDto) {
     return `This action updates a #${id} contact`;
   }
 */
-  remove(id: number) {
-    return `This action removes a #${id} contact`;
+  async remove(id: number) {
+    try {
+      const deleteMsg = await this.contactRepository.softDelete(id);
+      return {
+        message: 'Mensaje borrado con éxito', 
+      }; 
+    } catch (error) {
+      throw new InternalServerErrorException(error, "Problemas en el Service");
+    }
+   
   }
 }
