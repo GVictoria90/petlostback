@@ -6,7 +6,11 @@ import { ActiveUser } from '../common/decorators/active-user.decorator';
 import { UserActiveInterface } from '../common/interfaces/user-active.interface';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { Role } from '../common/enums/role.enum';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('Mascotas')
+@ApiBearerAuth()
 @Controller('pets') // Define un controlador para manejar las rutas relacionadas con las mascotas
 export class PetsController {
   constructor(private readonly petsService: PetsService) { } 

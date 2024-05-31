@@ -11,8 +11,9 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 // Importa el decorador de autenticación personalizado.
 
 import { Role } from 'src/common/enums/role.enum';
-// Importa el enumerador de roles que define los diferentes roles de usuario.
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Contacto')
 @Controller('contact')
 // Declara esta clase como un controlador de NestJS y define la ruta base como 'contact'.
 
