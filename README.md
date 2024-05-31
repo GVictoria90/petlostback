@@ -31,6 +31,8 @@ Este proyecto es una aplicación de Nest-js para gestionar publicaciones de masc
     ```bash
     npm install
     ```
+4. Crea la Base de Datos
+    en tu entorno de administracion de BD crea la base de datos
 
 ## Uso
 

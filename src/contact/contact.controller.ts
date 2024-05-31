@@ -3,7 +3,9 @@ import { ContactService } from './contact.service';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Role } from 'src/common/enums/role.enum';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Contacto')
 @Controller('contact')
 export class ContactController {
   constructor(private readonly contactService: ContactService) { }

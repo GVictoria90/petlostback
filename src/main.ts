@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,7 +15,7 @@ async function bootstrap() {
       whitelist: true, // admite lo de la lista blanca que son los DTO 
       forbidNonWhitelisted: true, // envia eror al cliente si envia otra cosa
       transform: true, // TRANSFORMA AUTOMATICAMENTE LOS DATOS, 
-                        // CUANDO PUEDE DE NUMBER A STRING O VICE VERSA SEGUN EL "DTO"
+      // CUANDO PUEDE DE NUMBER A STRING O VICE VERSA SEGUN EL "DTO"
     })
   );
 
@@ -25,6 +26,14 @@ async function bootstrap() {
     optionsSuccessStatus: 204,
     credentials: true,
   });
+
+  const config = new DocumentBuilder()
+    .setTitle("Pets Lost & Found example")
+    .setDescription("descripción de la app")
+    .setVersion("1.0")
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup("docs", app, document);
 
   // PUERTO 
   await app.listen(3006);

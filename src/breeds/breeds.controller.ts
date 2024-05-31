@@ -1,13 +1,13 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
 import { BreedsService } from './breeds.service';
 import { CreateBreedDto } from './dto/create-breed.dto';
-
 import { Auth } from '../auth/decorators/auth.decorator';
 import { Role } from "../common/enums/role.enum";
 import { ActiveUser } from 'src/common/decorators/active-user.decorator';
 import { UserActiveInterface } from 'src/common/interfaces/user-active.interface';
+import { ApiTags } from '@nestjs/swagger';
 
-
+@ApiTags('Razas')
 @Controller('breeds')
 export class BreedsController {
   constructor(private readonly breedsService: BreedsService) {}

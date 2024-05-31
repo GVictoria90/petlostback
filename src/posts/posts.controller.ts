@@ -5,7 +5,10 @@ import { ActiveUser } from 'src/common/decorators/active-user.decorator';
 import { UserActiveInterface } from 'src/common/interfaces/user-active.interface';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Role } from 'src/common/enums/role.enum';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('Publicaciones')
 @Controller('posts') // Define un controlador para manejar las rutas relacionadas con las publicaciones
 export class PostsController {
   constructor(private readonly postsService: PostsService) { } // Constructor que inyecta el servicio de Posts
