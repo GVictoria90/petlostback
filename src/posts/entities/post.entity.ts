@@ -8,8 +8,9 @@ export class Posts {
      @PrimaryGeneratedColumn()
      idPost: number;
 
-     @Column()
-     typePost: number;
+
+     @Column({ type: 'enum', enum: typePostEnum })
+     typePost: typePostEnum;
 
      @Column()
      title: string;

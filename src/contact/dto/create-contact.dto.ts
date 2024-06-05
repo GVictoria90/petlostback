@@ -16,9 +16,9 @@ export class CreateContactDto {
 
     @Column()  // Define una columna de la tabla en la base de datos
     @IsString()  // Valida que el valor de la propiedad sea una cadena de texto
-    @MinLength(30) // Valida que la longitud mínima de la cadena sea de 30 caracteres
+    @MinLength(10) // Valida que la longitud mínima de la cadena sea de 30 caracteres
     @MaxLength(300) // Valida que la longitud máxima de la cadena sea de 300 caracteres
-    message: string;   // Define una propiedad 'message' que será utilizada para almacenar el mensaje del contacto
+    messageSend: string;   // Define una propiedad 'message' que será utilizada para almacenar el mensaje del contacto
 }
 /**
  * Imports:

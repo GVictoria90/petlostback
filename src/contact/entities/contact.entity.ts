@@ -1,6 +1,6 @@
 // Importa las decoraciones `MaxLength` y `MinLength` del paquete `class-validator`
 // Estas se utilizan para validar la longitud de los campos de la entidad.
-import { MaxLength, MinLength } from "class-validator";
+import { IsEmail, MaxLength, MinLength } from "class-validator";
 
 // Importa las decoraciones de `typeorm` necesarias para definir la entidad y sus columnas.
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
@@ -23,13 +23,14 @@ export class Contact {
 
     // Define la columna `email` como un campo de la tabla.
     @Column()
+    @IsEmail()
     email: string;
 
     // Define la columna `message` como un campo de la tabla.
     @Column()
-    @MinLength(30) // Valida que la longitud mínima de la cadena sea de 30 caracteres
+    @MinLength(10) // Valida que la longitud mínima de la cadena sea de 30 caracteres
     @MaxLength(300) // Valida que la longitud máxima de la cadena sea de 300 caracteres
-    message: string;    
+    messageSend: string;    
 
     // Define la columna `deletedAt` para almacenar la fecha de eliminación lógica.
     // Se utiliza `@DeleteDateColumn` para manejar la eliminación lógica de registros.
