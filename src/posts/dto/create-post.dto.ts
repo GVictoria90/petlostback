@@ -1,11 +1,14 @@
 import { IsDate, IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
 import { typePostEnum } from "../../common/enums/typePost";
+import { PetEnum } from "src/common/enums/pet.enum";
 
 export class CreatePostDto {    
     
-    @IsNumber()
+
+
+    @IsEnum(PetEnum) // Valida que el valor sea uno de los miembros del enum
     @IsOptional()
-    typePost: number;
+    typePost?: typePostEnum;
 
     @IsString()
     @IsOptional()
