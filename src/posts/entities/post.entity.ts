@@ -10,7 +10,7 @@ export class Posts {
 
 
      @Column({ type: 'enum', enum: typePostEnum })
-     typePost: typePostEnum;
+     selectedTypePost: typePostEnum;
 
      @Column()
      title: string;
