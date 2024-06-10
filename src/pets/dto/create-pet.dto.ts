@@ -8,6 +8,7 @@ export class CreatePetDto {
 
     @IsInt() // ES NUMERO ENTERO
     @IsPositive() // SEA POSITIVO
+    @IsNumber()
     age: number;
 
     @IsString()
@@ -24,7 +25,7 @@ export class CreatePetDto {
 
     @IsString()
     @IsOptional()
-    imageFilename?: string;
+    image?: string;
 
     @IsNumber()
     @IsOptional()

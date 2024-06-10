@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UnauthorizedException, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UnauthorizedException, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { PetsService } from './pets.service';
 import { CreatePetDto } from './dto/create-pet.dto';
 import { UpdatePetDto } from './dto/update-pet.dto';
@@ -7,6 +7,7 @@ import { UserActiveInterface } from '../common/interfaces/user-active.interface'
 import { Auth } from '../auth/decorators/auth.decorator';
 import { Role } from '../common/enums/role.enum';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 
 @ApiTags('Mascotas')
@@ -15,11 +16,17 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 export class PetsController {
   constructor(private readonly petsService: PetsService) { } 
 
-  @Auth(Role.USER) 
-  @Post('newPet') 
-  create(@Body() createPetDto: CreatePetDto, @ActiveUser() user: UserActiveInterface) { 
-    return this.petsService.create(createPetDto, user); 
+  @Auth(Role.USER)
+  @Post('newPet')
+  @UseInterceptors(FileInterceptor('image'))
+  create(@Body() createPetDto: CreatePetDto, @UploadedFile() file: Express.Multer.File, @ActiveUser() user: UserActiveInterface) {
+    if (file) {
+      createPetDto.image = file.filename;
+    }
+    return this.petsService.create(createPetDto, user);
   }
+
+
   /**
    * 
   @Post('create')

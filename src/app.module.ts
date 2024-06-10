@@ -8,6 +8,9 @@ import { PostsModule } from './posts/posts.module';
 import { ContactModule } from './contact/contact.module';
 import { ConfigModule } from '@nestjs/config';
 import {DB_TYPE, HOST, USER_DB_NAME, USER_DB_PASSWORD, PORT, DATABASE_NAME   } from '../config.js'
+import { MulterModule } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @Module({
   imports: [
@@ -25,7 +28,9 @@ import {DB_TYPE, HOST, USER_DB_NAME, USER_DB_PASSWORD, PORT, DATABASE_NAME   } f
       database: DATABASE_NAME,
       autoLoadEntities: true, // CARGA LAS ENTITYS DE FORMA AUTOMATICA PARA NO HACERLO MANUAL
       synchronize: true, // TODO CAMBIO QUE SE GENERE ACA, SE SINCRONIZA CON LA "BD"
-    }),    
+    }), 
+    
+   
     BreedsModule, UsersModule, AuthModule, PetsModule, PostsModule, ContactModule],
   controllers: [],
   providers: [],

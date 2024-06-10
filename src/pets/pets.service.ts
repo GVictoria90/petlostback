@@ -19,26 +19,26 @@ export class PetsService {
     private readonly breedService: BreedsService) { }  
 
   /** +++++++++++++++ CREATE INICIO +++++++++++++++ */
-  async create(createPetDto: CreatePetDto, user: UserActiveInterface) { 
+  async create(createPetDto: CreatePetDto, user: UserActiveInterface) {
     try {
-      const breed = await this.breedService.validateBreed(createPetDto.breed) 
-      const insertPet = await this.petRepository.save({ 
-        ...createPetDto, 
-        breed: breed, 
-        idUser: user.idUser 
-      })
+      const breed = await this.breedService.validateBreed(createPetDto.breed);
+      const insertPet = await this.petRepository.save({
+        ...createPetDto,
+        breed: breed,
+        idUser: user.idUser,
+      });
 
       if (insertPet) {
-        return { message: 'successfully created pet' } 
+        return { message: 'successfully created pet' };
       } else {
-        throw new InternalServerErrorException("Error when creating the pet"); 
+        throw new InternalServerErrorException('Error when creating the pet');
       }
     } catch (error) {
       console.log(error);
-      
-      throw new InternalServerErrorException(error, "Error when calling the database"); 
+      throw new InternalServerErrorException(error, 'Error when calling the database');
     }
   }
+
 /**
  *   async create(createPetDto: CreatePetDto): Promise<Pet> {
     const pet = this.petRepository.create(createPetDto);
