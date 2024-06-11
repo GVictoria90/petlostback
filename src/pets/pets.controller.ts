@@ -19,11 +19,13 @@ export class PetsController {
   @Auth(Role.USER)
   @Post('newPet')
   @UseInterceptors(FileInterceptor('image'))
-  create(@Body() createPetDto: CreatePetDto, @UploadedFile() file: Express.Multer.File, @ActiveUser() user: UserActiveInterface) {
+  create(@Body() createPetDto: CreatePetDto, 
+  @UploadedFile() file: Express.Multer.File, 
+  @ActiveUser() user: UserActiveInterface) {
     if (file) {
       createPetDto.image = file.filename;
     }
-    return this.petsService.create(createPetDto, user);
+    return this.petsService.create(createPetDto, file, user);
   }
 
 
