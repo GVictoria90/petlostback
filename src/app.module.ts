@@ -10,7 +10,8 @@ import { ConfigModule } from '@nestjs/config';
 import {DB_TYPE, HOST, USER_DB_NAME, USER_DB_PASSWORD, PORT, DATABASE_NAME   } from '../config.js'
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { extname, join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
@@ -29,7 +30,11 @@ import { extname } from 'path';
       autoLoadEntities: true, // CARGA LAS ENTITYS DE FORMA AUTOMATICA PARA NO HACERLO MANUAL
       synchronize: true, // TODO CAMBIO QUE SE GENERE ACA, SE SINCRONIZA CON LA "BD"
     }), 
-    
+    //
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads', // Ruta base para acceder a los archivos
+    }),
    
     BreedsModule, UsersModule, AuthModule, PetsModule, PostsModule, ContactModule],
   controllers: [],

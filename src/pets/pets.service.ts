@@ -31,7 +31,7 @@ export class PetsService {
       });
 
       if (insertPet) {
-        return { message: 'successfully created pet' };
+        return { message: 'Mascota creada con exito' };
       } else {
         throw new InternalServerErrorException("Error when creating the pet");
       }

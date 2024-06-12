@@ -7,15 +7,14 @@ import { BreedsModule } from '../breeds/breeds.module';
 import { BreedsService } from '../breeds/breeds.service';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { extname, join } from 'path';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Pets]), 
-
-      MulterModule.register({
+    MulterModule.register({
       storage: diskStorage({
-        destination: './uploads',
+        destination: join(__dirname, '..', '..', 'dist', 'uploads'),
         filename: (req, file, cb) => {
           const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
           const ext = extname(file.originalname);
@@ -23,8 +22,8 @@ import { extname } from 'path';
         }
       })
     }),
-
-  BreedsModule],
+    BreedsModule
+  ],
   controllers: [PetsController],
   providers: [PetsService, BreedsService],
 })
