@@ -1,13 +1,12 @@
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { CreatePetDto } from './dto/create-pet.dto';
-import { UpdatePetDto } from './dto/update-pet.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Pets } from './entities/pet.entity';
+import { BreedsService } from 'src/breeds/breeds.service';
 import { Repository } from 'typeorm';
 import { Breed } from '../breeds/entities/breed.entity';
 import { UserActiveInterface } from '../common/interfaces/user-active.interface';
-import { Role } from '../common/enums/role.enum';
-import { BreedsService } from 'src/breeds/breeds.service';
+import { CreatePetDto } from './dto/create-pet.dto';
+import { UpdatePetDto } from './dto/update-pet.dto';
+import { Pets } from './entities/pet.entity';
 
 @Injectable()
 export class PetsService {
@@ -27,7 +26,6 @@ export class PetsService {
         ...createPetDto,
         breed: breed,
         idUser: user.idUser,
-        image: file?.filename // Guarda el nombre del archivo en la BD si existe
       });
 
       if (insertPet) {
