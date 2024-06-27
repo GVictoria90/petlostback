@@ -21,12 +21,12 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     }),
 // CONFIGURACIONES DE LA CONECCION A LA "BD"
     TypeOrmModule.forRoot({
-      type: DB_TYPE,
-      host: HOST,
-      username: USER_DB_NAME,
-      password: USER_DB_PASSWORD,
-      port: PORT,
-      database: DATABASE_NAME,
+      type: 'mysql',
+      host: "localhost",
+      username: "root",
+      password: "161poker",
+      port: 3306,
+      database: "petlost",
       autoLoadEntities: true, // CARGA LAS ENTITYS DE FORMA AUTOMATICA PARA NO HACERLO MANUAL
       synchronize: true, // TODO CAMBIO QUE SE GENERE ACA, SE SINCRONIZA CON LA "BD"
     }), 
