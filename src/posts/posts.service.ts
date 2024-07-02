@@ -68,7 +68,18 @@ export class PostsService {
       }
 
       // Ejecutamos la consulta y retornamos los resultados
-      return await queryBuilder.getMany();
+      const posts = await queryBuilder.getMany();
+
+      // Map over the posts to include the full image URL for each pet
+      const postsWithPetsImageUrls = posts.map(post => ({
+        ...post,
+        pets: post.pets.map(pet => ({
+          ...pet,
+          imageUrl: `http://localhost:3006/uploads/${pet.image}` // Prepend the static asset route to the pet's image filename
+        })),
+      }));
+ 
+      return postsWithPetsImageUrls;
     } catch (error) {
       // En caso de error, lanzamos una excepción BadRequest y proporcionamos un mensaje descriptivo
       throw new BadRequestException(error, 'QUERY FAILED WHEN TRYING LIST THE BREED');

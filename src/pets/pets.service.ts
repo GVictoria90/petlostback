@@ -26,10 +26,14 @@ export class PetsService {
         ...createPetDto,
         breed: breed,
         idUser: user.idUser,
+        image: file?.filename // Guarda el nombre del archivo en la BD si existe
       });
 
       if (insertPet) {
-        return { message: 'Mascota creada con exito' };
+        return { 
+          message: 'Mascota creada con exito',
+          idPet: insertPet.idPet,
+         };
       } else {
         throw new InternalServerErrorException("Error when creating the pet");
       }

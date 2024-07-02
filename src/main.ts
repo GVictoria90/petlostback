@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as express from 'express';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
@@ -24,9 +25,7 @@ async function bootstrap() {
   );
 
   // Configuración para servir archivos estáticos las fotos
-  app.useStaticAssets(join(__dirname, '..', 'dist', 'uploads'), {
-    prefix: '/uploads/',
-  });
+  app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
   
   app.enableCors({
     origin: '*', // Cambia '*' por el dominio específico que deseas permitir

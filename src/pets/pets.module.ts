@@ -14,7 +14,7 @@ import { extname, join } from 'path';
     TypeOrmModule.forFeature([Pets]), 
     MulterModule.register({
       storage: diskStorage({
-        destination: join(__dirname, '..', '..', 'dist', 'uploads'),
+        destination: './uploads',
         filename: (req, file, cb) => {
           const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
           const ext = extname(file.originalname);
