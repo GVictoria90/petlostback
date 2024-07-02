@@ -27,8 +27,9 @@ export class Posts {
      @Column({ default: 1 })
      isActive: number;
 
-     @Column({ default: () => 'CURRENT_TIMESTAMP' })
-     softDeleteDate: Date;
+     // @Column({ default: () => 'CURRENT_TIMESTAMP' })
+     @DeleteDateColumn({ nullable: true })
+     softDeleteDate?: Date;
 
      @ManyToOne(() => User, (user) => user.posting)
      @JoinColumn({ name: 'idUser', referencedColumnName: 'idUser', })

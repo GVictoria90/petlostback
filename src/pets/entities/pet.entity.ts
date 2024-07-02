@@ -34,8 +34,8 @@ export class Pets {
      @Column({ default: 1 })
      isActive: number;
 
-     @Column({ default: () => 'CURRENT_TIMESTAMP' }) // Usa una función para que TypeORM interprete CURRENT_TIMESTAMP como una función de MySQL
-     softDeleteDate: Date;
+     @DeleteDateColumn({ nullable: true }) // Usa una función para que TypeORM interprete CURRENT_TIMESTAMP como una función de MySQL
+     softDeleteDate?: Date;
 
      @Column()
      idUser: number;
@@ -43,14 +43,14 @@ export class Pets {
      @ManyToOne(() => User, (user) => user.pet)
      @JoinColumn({ name: 'idUser', referencedColumnName: 'idUser', })
      user: User;
+     
+     @Column()
+     idPost: number;
 
      // En la entidad Pets
      @ManyToOne(() => Posts, post => post.pets)
      @JoinColumn({ name: 'idPost', referencedColumnName: 'idPost' })
      post: Posts;
-
-     @Column()
-     idPost: number;
 
      @ManyToOne(() => Breed, (breed) => breed.idBreed,
           {

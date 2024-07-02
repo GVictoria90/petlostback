@@ -41,4 +41,10 @@ export class PostsController {
   softDelete(@Param('id') id: number) { // Maneja la solicitud DELETE para realizar un borrado lógico de una publicación
     return this.postsService.softDelete(id); // Llama al método softDelete del servicio de publicaciones y devuelve el resultado
   }
+
+  @Auth(Role.USER)
+  @Delete(':id/deleteAll') // Change the route to reflect the action
+  async softDeleteAllRelatedPetsAndSelf(@Param('id') id: number) {
+    return this.postsService.softDeleteAllRelatedPetsAndSelf(id);
+  }
 }

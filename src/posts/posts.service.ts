@@ -1,16 +1,20 @@
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Posts } from './entities/post.entity';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
-import { UserActiveInterface } from '../common/interfaces/user-active.interface';
+import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
+import { EntityManager , Repository } from 'typeorm';
 import { Role } from '../common/enums/role.enum';
+import { UserActiveInterface } from '../common/interfaces/user-active.interface';
+import { Pets } from '../pets/entities/pet.entity';
+import { PetsService } from '../pets/pets.service'; // Import PetsService
+import { CreatePostDto } from './dto/create-post.dto';
+import { Posts } from './entities/post.entity';
 
 @Injectable()
 export class PostsService {
   constructor(
-    @InjectRepository(Posts) private readonly postsRepository: Repository<Posts>
+    @InjectRepository(Posts) private readonly postsRepository: Repository<Posts>,
+    private readonly petsService: PetsService, // Keeping PetsService as is
+    @InjectRepository(Pets) private readonly petRepository: Repository<Pets>, // Adjusted PetRepository injection
+    @InjectEntityManager() private entityManager: EntityManager,
   ) { }
 
   async create(createPostDto: CreatePostDto, user: UserActiveInterface) {
@@ -142,4 +146,25 @@ export class PostsService {
     }
   }
 
+  async softDeleteAllRelatedPetsAndSelf(idPost: number): Promise<void> {
+    try {
+      // const post = await this.postsRepository.find(idPost, { relations: ['pets'] });
+      const post = await this.postsRepository.findOne({ where: { idPost: idPost } });
+      if (!post) {
+        throw new NotFoundException('Post not found');
+      }
+
+      post.isActive = 0;
+      post.softDeleteDate = new Date();
+      await this.postsRepository.save(post);
+
+    } catch (error) {
+      throw new BadRequestException(error.message, 'Failed to delete post and related pets');
+    }
+  }
+
 }
+function deleteAllByPostId(idPost: number) {
+  throw new Error('Function not implemented.');
+}
+

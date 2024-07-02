@@ -69,4 +69,10 @@ findAll(@Query('userId') userId: number, @ActiveUser() user: UserActiveInterface
   softDelete(@Param('id') id: number) { // Maneja la solicitud DELETE para realizar un borrado lógico de una mascota
     return this.petsService.softDelete(id); // Llama al método softDelete del servicio de mascotas y devuelve el resultado
   }
+
+  @Auth(Role.USER)
+  @Delete(':id/deleteAllByPostId') // Change the route to reflect the action
+  async softDeleteAllRelatedPetsAndSelf(@Param('id') id: number) {
+    return this.petsService.deleteAllByPostId(id);
+  }
 }

@@ -26,5 +26,6 @@ import { extname, join } from 'path';
   ],
   controllers: [PetsController],
   providers: [PetsService, BreedsService],
+  exports: [PetsService, TypeOrmModule], // Export PetsService
 })
 export class PetsModule {}

@@ -135,4 +135,24 @@ export class PetsService {
     }
   }
   /** +++++++++++++++ REMOVE AND RESTORE FIN +++++++++++++++ */
+
+  async deleteAllByPostId(idPost: number): Promise<void> {
+    try {
+      // Use createQueryBuilder to find all pets related to the post
+      const pets = await this.petRepository.createQueryBuilder('pet')
+       .where('pet.idPost = :idPost', { idPost }) // Specify the condition
+       .getMany(); // Fetch all matching records
+  
+       for (const pet of pets) {
+        // Assuming you want to set pets to inactive
+        pet.isActive = 0; // Assign 0 instead of false
+        pet.softDeleteDate = new Date();
+        await this.petRepository.save(pet);
+      }
+      
+    } catch (error) {
+      throw new BadRequestException(error.message, 'Failed to delete pets related to the post');
+    }
+  }
+  
 }
