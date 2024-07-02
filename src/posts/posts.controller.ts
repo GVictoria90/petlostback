@@ -15,6 +15,11 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) { } // Constructor que inyecta el servicio de Posts
 
   @Get() // Define un endpoint para manejar las solicitudes GET a la ruta base del controlador (/posts)
+  findAllActive(@ActiveUser() user: UserActiveInterface) { // Maneja la solicitud GET para buscar todas las publicaciones
+    return this.postsService.findAllActive(user); // Llama al método findAll del servicio de publicaciones y devuelve el resultado
+  }
+
+  @Get('all') // Define un endpoint para manejar las solicitudes GET a la ruta base del controlador (/posts)
   findAll(@ActiveUser() user: UserActiveInterface) { // Maneja la solicitud GET para buscar todas las publicaciones
     return this.postsService.findAll(user); // Llama al método findAll del servicio de publicaciones y devuelve el resultado
   }
